@@ -9,19 +9,19 @@ class RoadmapService:
         self.load_data()
 
     def load_data(self):
-        self.df_if = pd.read_csv('문제 추천/조건문_로드맵_2.csv', encoding='utf-8')
-        self.df_for = pd.read_csv('문제 추천/반복문_로드맵_2.csv', encoding='utf-8')
-        self.df_arr = pd.read_csv('문제 추천/배열_로드맵_2.csv', encoding='utf-8')
-        self.df_string = pd.read_csv('문제 추천/문자열_로드맵_2.csv', encoding='utf-8')
-        self.df_function = pd.read_csv('문제 추천/함수_로드맵_2.csv', encoding='utf-8')
-        self.df_recursion = pd.read_csv('문제 추천/재귀_로드맵_2.csv', encoding='utf-8')
-        self.df_stack = pd.read_csv('문제 추천/스택_로드맵_2.csv', encoding='utf-8')
-        self.df_queue = pd.read_csv('문제 추천/큐_로드맵_2.csv', encoding='utf-8')
-        self.df_tree = pd.read_csv('문제 추천/트리_로드맵_2.csv', encoding='utf-8')
-        self.df_heap = pd.read_csv('문제 추천/우선순위 큐_로드맵_2.csv', encoding='utf-8')
-        self.df_sort = pd.read_csv('문제 추천/정렬_로드맵_2.csv', encoding='utf-8')
-        self.df_binary = pd.read_csv('문제 추천/이진 탐색_로드맵_2.csv', encoding='utf-8')
-        self.df_graph = pd.read_csv('문제 추천/그래프_로드맵_2.csv', encoding='utf-8')
+        self.df_if = pd.read_csv('recommend/ifelse.csv', encoding='utf-8')
+        self.df_for = pd.read_csv('recommend/for.csv', encoding='utf-8')
+        self.df_arr = pd.read_csv('recommend/array.csv', encoding='utf-8')
+        self.df_string = pd.read_csv('recommend/string.csv', encoding='utf-8')
+        self.df_function = pd.read_csv('recommend/function.csv', encoding='utf-8')
+        self.df_recursion = pd.read_csv('recommend/recursion.csv', encoding='utf-8')
+        self.df_stack = pd.read_csv('recommend/stack.csv', encoding='utf-8')
+        self.df_queue = pd.read_csv('recommend/queue.csv', encoding='utf-8')
+        self.df_tree = pd.read_csv('recommend/tree.csv', encoding='utf-8')
+        self.df_heap = pd.read_csv('recommend/priorityqueue.csv', encoding='utf-8')
+        self.df_sort = pd.read_csv('recommend/sort.csv', encoding='utf-8')
+        self.df_binary = pd.read_csv('recommend/binarysearch.csv', encoding='utf-8')
+        self.df_graph = pd.read_csv('recommend/graph.csv', encoding='utf-8')
 
 
     def get_question(self):
