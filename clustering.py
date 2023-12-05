@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 from yellowbrick.cluster import KElbowVisualizer
 from sklearn.cluster import KMeans
 import matplotlib.pyplot as plt
+plt.switch_backend('Agg')
 import pandas as pd
 import warnings
 
@@ -10,7 +11,7 @@ warnings.filterwarnings(action='ignore')
 class ClusteringService:
     def __init__(self):
         # 사용자 데이터 불러오기
-        self.df = pd.read_csv('fake_user.csv')
+        self.df = pd.read_csv('user_100.csv')
         self.df.columns = ['name', 'level', 'problem_number', 'problem_level', 'unrated', 'bronze', 'silver', 'gold',
                       'platinum', 'diamond', 'ruby']
 
