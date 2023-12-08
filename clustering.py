@@ -4,6 +4,7 @@ from sklearn.cluster import KMeans
 from collections import Counter
 import matplotlib.pyplot as plt
 plt.switch_backend('Agg')
+from collections import Counter
 import pandas as pd
 import warnings
 
