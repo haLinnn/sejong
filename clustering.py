@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from yellowbrick.cluster import KElbowVisualizer
 from sklearn.cluster import KMeans
+from collections import Counter
 import matplotlib.pyplot as plt
 plt.switch_backend('Agg')
 import pandas as pd
@@ -36,7 +37,7 @@ class ClusteringService:
 
         # 최적의 군집 수 찾기
         kmeans = KMeans(random_state=42)
-        KEV = KElbowVisualizer(kmeans, k=20, n_init="auto")
+        KEV = KElbowVisualizer(kmeans, k=10, n_init="auto")
         KEV.fit(filtered_rows[['level', 'unrated', 'bronze', 'silver', 'gold', 'platinum', 'diamond', 'ruby']])
         plt.close()
 
@@ -50,7 +51,7 @@ class ClusteringService:
         filtered_rows['Cluster'] = kmeans.labels_
 
         # test 사용자와 같은 군집에 속한 사용자 추출
-        total = filtered_rows[filtered_rows['Cluster'] == filtered_rows.iloc[idx]['Cluster']].drop(index=idx)
+        total = filtered_rows[filtered_rows['Cluster'] == filtered_rows.loc[idx, 'Cluster']].drop(index=idx)
 
         total['problem_number'] = total['problem_number'].str.replace('[', '')
         total['problem_number'] = total['problem_number'].str.replace(']', '')
@@ -61,13 +62,28 @@ class ClusteringService:
         # 문제 번호를 쉼표로 구분하여 나누고, 빈도수를 계산하기
         test_counts = test['problem_number'].str.split(',').explode().apply(int).to_list()
 
-        # test 사용자가 풀지 않은 문제 추출
-        problem_counts = total[~total['problem_number'].isin(test_counts)]
+        total_counts = total['problem_number'].str.split(',').explode().apply(int).to_list()
 
-        # 문제 번호를 쉼표로 구분하여 나누고, 빈도수를 계산하기
-        problem_counts = total['problem_number'].str.split(',').explode().apply(int).value_counts()
+        difference = set(total_counts) - set(test_counts)
 
-        return problem_counts[:5].index.to_list()
+        try:
+            # 다른 사용자들이 푼 문제 리스트에서 각 문제 번호의 빈도수 계산
+            problem_counts = Counter(total_counts)
+
+            # test 사용자가 푼 문제를 제외한 다른 사용자들이 푼 문제 리스트에서 등장한 문제 번호의 빈도수 감소
+            for problem in set(test_counts):
+                problem_counts[problem] -= 1
+
+            # difference에 있는 번호만을 대상으로 빈도수로 내림차순 정렬
+            sorted_results = sorted(difference, key=lambda x: problem_counts[x], reverse=True)
+
+            # 상위 5개만 출력
+            top_5 = sorted_results[:5]
+
+            return top_5
+
+        except:
+            return "추천 문제가 없습니다."
 
     def recommend_problems(self):
         data = request.get_json()

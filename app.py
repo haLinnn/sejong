@@ -4,12 +4,14 @@ from roadmap import RoadmapService
 from clustering import ClusteringService
 from recommendation import RecommendationService
 import logging
+from flask_cors import CORS
 
 logging.basicConfig(level=logging.DEBUG)
 app = Flask(__name__)
 roadmap_service = RoadmapService()
 cluster_service = ClusteringService()
 recommendation_service = RecommendationService()
+cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
 @app.route('/ml/get_subject', methods=['POST'])
 def get_subject_route():

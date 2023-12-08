@@ -18,5 +18,6 @@ RUN pip install pickle-mixin
 RUN pip install numpy
 RUN pip install konlpy
 RUN pip install yellowbrick
+RUN pip install flask_cors
 
 CMD ["python3", "-m", "flask", "run", "--host=0.0.0.0"]
