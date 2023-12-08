@@ -10,7 +10,7 @@ warnings.filterwarnings('ignore')
 app2 = Flask(__name__)
 
 # 문제 데이터프레임 불러오기
-df = pd.read_csv('df_최종_최종.csv')
+df = pd.read_csv('df_problems.csv')
 df.columns = ['content_link', 'title', 'problem', 'rate', 'number', 'korean', 'level', 'classification', '별칭']
 
 # null값 처리
@@ -70,7 +70,7 @@ def find_similar_sentences(title, top_n=20):
 
     return similar_titles[['number', 'content_link', 'title', 'problem', 'level', 'classification', 'similar']]
 
-@app2.route('/find_similar_question', methods=['POST'])
+@app2.route('/ml/find_similar_question', methods=['POST'])
 def find_similar_question():
     data = request.get_json()
     title = data['title']

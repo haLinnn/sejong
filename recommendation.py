@@ -13,8 +13,8 @@ class RecommendationService():
 
     def load_data(self):
         # 문제 데이터프레임 불러오기
-        self.df = pd.read_csv('df_최종_최종.csv')
-        self.df.columns = ['content_link', 'title', 'problem', 'rate', 'number', 'korean', 'level', 'classification', '별칭']
+        self.df = pd.read_csv('df_problems.csv')
+        self.df.columns = ['content_link', 'title', 'rate', 'number', 'korean', 'level', 'classification', '별칭']
 
         # null값 처리
         self.df.loc[self.df['classification'].isnull(), 'classification'] = '0'
@@ -71,7 +71,7 @@ class RecommendationService():
         # 레벨이 현재 선택한 제목(title)의 레벨과 3 이내로 차이나는 항목만 필터링
         similar_titles = similar_titles[abs(similar_titles['level'] - title_level) <= 3]
 
-        return similar_titles[['number', 'content_link', 'title', 'problem', 'level', 'classification', 'similar']]
+        return similar_titles[['number', 'content_link', 'title', 'level', 'classification', 'similar']]
 
     def find_similar_question(self, title):
         similar_titles = self.find_similar_sentences(title, 20)

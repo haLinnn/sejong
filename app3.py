@@ -63,10 +63,10 @@ df = pd.read_csv('fake_user.csv')
 df.columns = ['name', 'level', 'problem_number', 'problem_level', 'unrated', 'bronze', 'silver', 'gold', 'platinum', 'diamond', 'ruby']
 
 # 문제 데이터 불러오기
-q = pd.read_csv('df_최종_최종.csv')
+q = pd.read_csv('df_problems.csv')
 q.columns = ['content_link', 'title', 'problem', 'rate', 'number', 'korean', 'level', 'classification', '별칭']
 
-@app3.route('/recommend_problems', methods=['POST'])
+@app3.route('/ml/recommend_problems', methods=['POST'])
 def recommend_problems():
     data = request.get_json()
     name = data['name']

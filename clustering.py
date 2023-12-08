@@ -1,7 +1,9 @@
 from flask import Flask, request, jsonify
 from yellowbrick.cluster import KElbowVisualizer
 from sklearn.cluster import KMeans
+from collections import Counter
 import matplotlib.pyplot as plt
+plt.switch_backend('Agg')
 from collections import Counter
 import pandas as pd
 import warnings
@@ -16,8 +18,8 @@ class ClusteringService:
                       'platinum', 'diamond', 'ruby']
 
         # 문제 데이터 불러오기
-        self.q = pd.read_csv('df_최종_최종.csv')
-        self.q.columns = ['content_link', 'title', 'problem', 'rate', 'number', 'korean', 'level', 'classification', '별칭']
+        self.q = pd.read_csv('df_problems.csv')
+        self.q.columns = ['content_link', 'title', 'rate', 'number', 'korean', 'level', 'classification', '별칭']
 
 
     def problem_recommendation(self, idx, name):
